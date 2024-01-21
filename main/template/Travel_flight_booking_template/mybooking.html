@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My bookings</title>
+    <link rel="stylesheet" href="/static/css/Travel_flight_booking_css/mybooking.css">
+</head>
+<body>
+    <section class="mybooking-nav">
+        <div class="mybooking-navcontainer">
+            <div class="mybooking-navcmn mybooking-heading"><h2>MY BOOKINGS</h2></div>
+            <div class="mybooking-navcmn mybooking-backbutton"><a href="/flight_user">Back</a></div>
+        </div>
+        
+    </section>
+    <section class="mybooking-list">
+        <h3>Departure Flights</h3>
+        
+        {% for i in booking %}
+        <div class="mybooking-listconatainer">
+            <div class="mybooking-item mybooking-item1"><h3>{{i.id}}{{i.flight.flight_company}}</h3></div>
+            <div class="mybooking-item mybooking-item2"><h3>Depart Time:{{i.flight.depart_time}}</h3></div>
+            <div class="mybooking-item mybooking-item3"><h3>Depart Date:{{i.flight.Depart_date}}</h3></div>
+            <div class="mybooking-item mybooking-item4"><h3>From{{i.flight.From}}</h3></div>
+            <div class="mybooking-item mybooking-item6"><h3>Price{{i.flight.price}}</h3></div>
+            <div class="mybooking-item mybooking-item7"><h3>Time of booking{{i.date_of_booking}}</h3></div>
+            <!-- <div class="mybooking-item mybooking-item5">
+                <form action="{% url 'bookingreceipt' %}" method="post">
+                    {% csrf_token %}
+                    <input type="number" id="id_of_bookingreceipt" value="{{i.id}}" hidden>
+                    <button type="submit">Download Details</button></div>
+                </form>
+            </div> -->
+        </div>
+        {% endfor %}
+        {% if booking_return.flight1 %}
+        <h3>Return Flights</h3>
+        
+        {% for n in booking_return %}
+        <div class="mybooking-listconatainer">
+            <div class="mybooking-item mybooking-item1"><h3>{{n.id}}{{n.flight1.flight_company}}</h3></div>
+            <div class="mybooking-item mybooking-item2"><h3>Depart Time:{{n.flight1.depart_time}}</h3></div>
+            <div class="mybooking-item mybooking-item3"><h3>Arrival Time:{{n.flight1.arrival_time}}</h3></div>
+            <div class="mybooking-item mybooking-item4"><h3>From: {{n.flight1.From}}</h3></div>
+            <div class="mybooking-item mybooking-item6"><h3>Price:{{n.flight1.price}}</h3></div>
+            <div class="mybooking-item mybooking-item7"><h3>Time of booking{{n.date_of_booking}}</h3></div>
+            <!-- <div class="mybooking-item mybooking-item5">
+                <form action="{% url 'bookingreceipt' %}" method="post">
+                    {% csrf_token %}
+                    <input type="number" id="id_of_bookingreceipt" value="{{n.id}}" hidden>
+                    <button type="submit" style="background-color: slategrey;"><a href="">Download Details</a></button>
+                </form>
+                </div> -->
+                
+                
+        </div>
+        {% endfor %}
+        {% endif %}
+    </section>
+    
+    
+</body>
+</html>

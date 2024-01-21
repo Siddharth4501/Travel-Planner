@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Guides</title>
+    <style>
+        .my_guide_heading{
+            background-color: slategrey;
+            color: white;
+            font-size: 1.5rem;
+            height: 10vh;
+            overflow: hidden;
+        }
+        .my_guides_detail_container{
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+            box-shadow: 0.6rem 0.7rem 0.8rem grey;
+        }
+        .my_guide_detail_item{
+            width: 21%;
+            height: 8vh;
+            border: 2px solid black;
+        }
+        .my_guide_detail_item3{
+            width: 35%;
+        }
+        
+        .guide_booking_cancel{
+            text-decoration: none;
+            color: white;
+            font-size: 1.2rem;
+            background: black;
+            border: 2px solid black;
+            border-radius: 12px;
+            padding: 0.3rem;
+            position: relative;
+            left: 4rem;
+            top: 1.2rem;
+            
+        }
+        .guide_booking_cancel:hover{
+            background-color: rgb(255,181,0);
+            color: black;
+        }
+        #cancel_book_guide{
+            width: 23px;
+        }
+    </style>
+</head>
+<body>
+    <section class="my_guides_head">
+        <div class="my_guide_heading">
+            <h1>MY GUIDES</h1>    
+        </div><br>
+        <a href="/flight_user" style="background-color: black; color: white; padding: 0.4rem; font-size: 1.2rem; text-decoration: none;">Back</a>
+        
+        <!-- <div class="go_back"><a href="/flight_user" style="color: white; float: right; font-size: 1.5rem; margin: 1rem; z-index: 9999; height: 4vh; width: 4vw;">Back</a></div> -->
+    </section>
+    <section class="my_guides_detail">
+        {% for i in gd_booking %}
+        <div class="my_guides_detail_container">
+            <div class="my_guide_detail_item my_guide_detail_item1"><h3>Serail No.1</h3></div>
+            <div class="my_guide_detail_item my_guide_detail_item2"><h3>Guide Name:{{i.guide.guide_name}}</h3></div>
+            <div class="my_guide_detail_item my_guide_detail_item3"><h3>From:{{i.bk_start_date}}-To:{{i.bk_end_date}}</h3></div>
+            <div class="my_guide_detail_item my_guide_detail_item4">
+                {% if i.guide_book_active_status %}
+                <form action="{% url 'Myguides' %}" method="post">
+                    {% csrf_token %}
+                    <input type="number" name="cancel_book_guide" id="cancel_book_guide" value="{{i.id}}" hidden>
+                    
+                    <button class="guide_booking_cancel" id="guide_booking_cancel" onclick="canc_func()">Cancel Booking</button></div>
+                    
+                </form>
+                {% else %}
+                <p class="cacelled_guide_disble_para" style="background-color: red; color: white; text-align: center; width: 150px; font-size: 1.2rem; padding: 0.3rem; border-radius: 23px; transform: translate(10%,0%);">Guide canelled</p>
+                {% endif %}
+            
+        </div>
+        {% endfor %}
+    </section>
+    {% if guide_cancelled %}
+    <script>
+        
+            
+        alert("guide cancelled");
+        
+        
+    </script>
+    {% endif %}
+</body>
+</html>

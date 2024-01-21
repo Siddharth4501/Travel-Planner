@@ -1,0 +1,288 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Page</title>
+    <link rel="stylesheet" href="/static/css/Travel_flight_booking_css/bookingstyle.css">
+</head>
+<body>
+    <section class="bookingpage-head">
+        
+        <div class="bookingpage-nav">
+            
+            <div class="booking-navitem from" id="from"><h3>From:{{From}}</h3></div>
+            <div class="booking-navitem to" id="to"><h3>To:{{To}}</h3></div>
+            <div class="booking-navitem depart" id="depart"><h3>Depart Date:{{Depart_date}}</h3></div>
+            <div class="booking-navitem Class" id="Class"><h3>Class:{{Class}}</h3></div>
+            
+            <div class="booking-navitem return" id="return"><h3>Return Date:{{Return_date}}</h3></div>
+            <div class="booking-navitem back"><a href="/flight_user"><b>Back</b></a></div>
+            
+        </div>
+        
+    </section>
+    <section class="available-flights">
+        <div class="available-flights-container">
+            {% for n in flightdata1 %}
+            <div class="av av-1">
+                
+                <div class="airline airline1" id="airline1"><input type="radio" onclick="tot_price1()" name="airlineradio" id="{{n.id}}" value="{{n.id}}" style="margin-top: 1rem;" required><img src="/static/media/plane.png" style="height: 40px; width:40px; margin-top: 0.4rem;" class="plane"></div>
+                <div class="airline airline2" id="airline2"><h4>{{n.flight_company}}</h4></div>
+                <div class="airline airline3" id="airline3"><h4>DEPARTURE TIME: {{n.depart_time}}</h4></div>
+                <div class="airline airline4" id="airline4"><h4>ARRIVAL TIME: {{n.arrival_time}}</h4></div>
+                <div class="airline airline5" id="airline5"><p name="pricing" id="pricing"><h4>RS.{{n.price}}</h4></p></div>
+                
+                
+                
+            </div>
+            {% endfor %}
+            
+        </div>
+    </section>
+    {% if flightdata2 is not None %}
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <section class="bookingpage-head">
+        
+        <div class="bookingpage-nav">
+            
+            <div class="booking-navitem from" id="from"><h3>From:{{To}}</h3></div>
+            <div class="booking-navitem to" id="to"><h3>To:{{From}}</h3></div>
+            <div class="booking-navitem depart" id="depart"><h3>Depart Date:{{Return_date}}</h3></div>
+            <div class="booking-navitem Class" id="Class"><h3>Class:{{Class}}</h3></div>
+            
+            <!-- <div class="booking-navitem return" id="return"><h3>Return Date:{{Return_date}}</h3></div> -->
+            <div class="booking-navitem back"><a href=""><b>Back</b></a></div>
+            
+        </div>
+        
+    </section>
+    <section class="available-flights">
+        <div class="available-flights-container">
+            {% for n in flightdata2 %}
+            <div class="av av-1">
+                
+                <div class="airline airline1" id="airline1"><input type="radio" onclick="tot_price2()" name="airlineradio_roundtrip" id="{{n.id}}" value="{{n.id}}" style="margin-top: 1rem;" required><img src="/static/media/plane.png" style="height: 40px; width:40px; margin-top: 0.4rem;" class="plane"></div>
+                <div class="airline airline2" id="airline2"><h4>{{n.flight_company}}</h4></div>
+                <div class="airline airline3" id="airline3"><h4>DEPARTURE TIME: {{n.depart_time}}</h4></div>
+                <div class="airline airline4" id="airline4"><h4>ARRIVAL TIME: {{n.arrival_time}}</h4></div>
+                <div class="airline airline5" id="airline5"><p name="pricing" id="pricing"><h4>RS.{{n.price}}</h4></p></div>
+                
+                
+            </div>
+            {% endfor %}
+            
+        </div>
+    </section>
+    {% endif %}
+    <footer class="bookingsearch-result">
+        
+        <div class="bookingpage-footer">
+            
+            <div class="flight-footercmn flight-total-flight">
+                <h4 id="totalprice-class" style="color: white;">Proceed For Payment</h4>
+      
+                
+            </div>
+            <div class="flight-footercmn sel-flight-info">
+                <form method="post" action="{% url 'trail' %}">
+                    {% csrf_token %}
+                    
+                    <input type="number" name="bookedfinal" id="tttt1" hidden />
+                    <input type="number" name="bookedfinal_roundtrip" id="tttt2" hidden />
+                    
+                    <div class="flight-footercmn booking-footeritem next" style="display:flex; justify-content:end;"><button onclick="setInputValue()" style="color: whitesmoke; background-color: grey; padding: 0.8rem; margin: 0.8rem; font-size: 18px;" id="pay_is_next_op">Next</button></div>
+                </form>
+            </div>
+            
+            
+            
+        </div>
+
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+   
+    <script>
+        // $(document).ready(function(){
+        //     $(".bookingflightBtn").click(function(){
+        //         var selectedFlight=$("#flightlist li.selected");
+        //         if (selectedFlight.length > 0){
+        //             var flightNumber=selectedFlight.data("id");
+                    // $.ajax({
+                    //     type: "POST",
+                    //     url: "/bookedData/",  // Change this to the URL of your backend endpoint
+                    //     data: JSON.stringify({ flightNumber: flightNumber }),
+                    //     contentType: "application/json;charset=utf-8",
+                    //     success: function (response) {
+                    //         console.log("Data sent successfully!");
+            
+                    //     },
+                    //     error: function (error) {
+                    //         console.error("Error sending data:", error);
+                    //     },
+
+                    // });
+        //         }   
+        //         else{
+        //             console.log("no flights selected");
+        //         }
+        //     });
+        //     $("#flightList li").click(function () {
+      
+        //         $("#flightList li").removeClass("selected");
+        //         $(this).addClass("selected");
+        //     });
+        // });
+    //    function tot_price(){
+        // var data1=document.getElementById("from").innerHTML;
+        // var data2=document.getElementById("to").innerHTML;
+        // var data3=document.getElementById("depart").innerHTML;
+        // var data4=document.getElementById("Class").innerHTML;
+        // var data5=document.getElementById("return").innerHTML;
+        // var dictionary1;
+        // $('input[name="airlineradio"]').each(function(){
+        //     if(this.checked){
+        //         dictionary1={'from':data1,'to':data2,'depart':data3,'Class':data4,'return':data5,}}
+        // });
+        
+        //     var data1=document.getElementById("from").innerHTML;
+        //     var data2=document.getElementById("to").innerHTML;
+        //     var data3=document.getElementById("depart").innerHTML;
+        //     var data4=document.getElementById("Class").innerHTML;
+        //     var data5=document.getElementById("return").innerHTML;
+        //     console.log(data1)
+        //     console.log(data2)
+        //     console.log(data3)
+        //     console.log(data4)
+        //     console.log(data5)
+        //     var data6=document.getElementById("airline2").innerHTML;
+        //     var data7=document.getElementById("airline3").innerHTML;
+        //     var data8=document.getElementById("airline4").innerHTML;
+        //     var data9=document.getElementById("pricing").innerHTML;
+        //     console.log(data6)
+        //     console.log(data7)
+        //     console.log(data8)
+        //     console.log(data9)
+
+        //     // var dictionary1;
+        var x;
+        function tot_price1() {
+            const selectedOption = document.querySelector('input[name="airlineradio"]:checked');
+            console.log(selectedOption);
+            
+            if (selectedOption){
+                x=document.querySelector('input[name="airlineradio"]:checked').value;
+                
+                datajs={"x":x};}
+            
+                // console.log(x)
+                // document.getElementById("tttt").innerHTML=x;}
+            //     $.ajax({
+                        
+            //             url: "/bookedData/", 
+            //             data: (datajs),
+                        
+            //             contentType: "application/json;charset=utf-8",
+            //             error: function (error) {
+            //                 console.error("Error sending data:", error);
+            //             },
+            //             success: function (response) {
+                            
+            //                 console.log("Data sent successfully!",datajs);
+            
+            //             },
+
+            //     });
+            // }  
+                // document.getElementById("from1").innerHTML=data1;
+                // document.getElementById("to1").innerHTML=data2;
+                // document.getElementById("depart1").innerHTML=data3;
+                // document.getElementById("Class1").innerHTML=data4;
+                // document.getElementById("return1").innerHTML=data5;}
+                // document.getElementById("flight_comapany1").innerHTML=data6;
+                // document.getElementById("depart_time1").innerHTML=data7;
+                // document.getElementById("arrival_time1").innerHTML=data8;
+                // document.getElementById("price1").innerHTML=data9;
+            
+             
+                
+            else {
+                alert('Please select an option.');
+            }
+            // console.log(document.getElementById("tttt").innerHTML);
+        }
+        
+        var y;
+        function tot_price2() {
+            const selectedOption = document.querySelector('input[name="airlineradio_roundtrip"]:checked');
+            console.log(selectedOption);
+            if (selectedOption){
+                y=document.querySelector('input[name="airlineradio_roundtrip"]:checked').value;
+                datajs={"y":y};}
+            else {
+                alert('Please select an option.');
+            }
+            
+        }
+        function setInputValue(){
+            var input1=document.getElementById('tttt1');
+            input1.value=x;
+            var input2=document.getElementById('tttt2');
+            if (y !=null){
+                input2.value=y;
+            }
+            else{
+                input2.value=0;
+            }
+            if (input1.value==0 && input2.value==0){
+                var pay_next_op=document.getElementById("pay_is_next_op");
+                pay_next_op.disabled=true;
+                alert("please select and option");
+            }
+            else{
+                var pay_next_op=document.getElementById("pay_is_next_op");
+                pay_next_op.disabled=false; 
+            }
+
+        }
+        //     console.log(data1)
+            // dictionary1=JSON.stringify(dictionary1);
+            // console.log(typeof(dictionary1))
+            // document.getElementById("tttt").innerHTML=dictionary1;
+            // var x;
+            // x=document.getElementById("tttt").innerHTML;
+            // console.log(x);
+        // }
+        
+
+        
+        // var data_check=[]
+        // data_check=document.getElementsByName("airlineradio");
+        // var i;
+        // console.log(data_check);
+        // for(i=0;i<=data_check.length;i++){
+        //     if (data_check[i].checked==true){
+        //         dictionary1={'from':data1,'to':data2,'depart':data3,'Class':data4,'return':data5,
+        // };}
+        // }
+        
+        
+        
+    
+        
+        // console.log(dictionary1)
+        /*var i;
+        for(i=0;i<=data2.length;i++){
+            if(data2[i].checked){
+                
+                document.getElementByName("totalprice-class").innerHTML=data1[i];
+
+            }
+        }*/
+    // }
+
+    </script>
+    <!-- dictionary1={'from':data1,'to':data2,'depart':data3,'Class':data4,'return':data5,}} -->
+</body>
+</html>
