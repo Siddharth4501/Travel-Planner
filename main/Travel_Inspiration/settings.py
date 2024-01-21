@@ -127,5 +127,5 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_DIRS = [BASE_DIR ,'static']
 
-KEY_ID="rzp_test_IEPK84HwP17zwT"
-KEY_SECRET="WDedLnChVOQwP44QNs7g4KKa"
+KEY_ID="" // Your Razorpay KEY_ID
+KEY_SECRET="" //Your Razorpay KEY_SECRET
