@@ -1,0 +1,156 @@
+body{
+    padding: 0;
+    margin: 0;
+    font-size: 1.2rem;
+    box-sizing: border-box;
+
+}
+.userpg{
+    /* background-image: url(/static/media/userpgback.jpg); */
+    background-image: url(/static/media/aboutpgimg.jpg);
+    background-position: center;
+    background-size: cover;
+    height: 100vh;
+    position: relative;
+    
+}
+
+/* .userpanel{
+    display: flex;
+    flex-direction: column;
+    opacity: 0.93;
+    
+    
+} */
+/* .usercmn{
+    width: 20%;
+    height: 10vh;
+    border: 2px solid black;
+    background-color:dimgrey;
+}
+.usercmn a{
+    text-decoration: none;
+    color: black;
+}
+.username{
+    height: 20vh;
+}
+.user-logout{
+    height: 50vh;
+} */
+.booking-container{
+    position: absolute;
+    top: 10%;
+    left: 30%;
+    
+    
+    
+    border: 2px solid black;
+    height: 80vh;
+    width: 60vw;
+    background-color: #18334dfe;
+    opacity: 0.93;
+    color: white;
+    
+    box-shadow: 0.7rem 0.6rem 0.6rem black;
+}
+
+
+
+.bookingvia{
+    padding: 2rem;
+}
+
+
+.flightin input{
+    width: 90%;
+    height: 3vh;
+    
+}
+.flightin select{
+    width: 90%;
+    height: 4vh;
+    font-size: 1.4rem;
+}
+.book-flight-button{
+    background-color:antiquewhite;
+    color: brown;
+    font-size: 1.5rem;
+    
+}
+.blink{
+    animation: blink 2s linear infinite;
+    animation-delay: 1s;
+    
+    color: brown;
+}
+@keyframes blink{
+    50%{
+        opacity: 0;
+    }
+}
+#flight-search{
+    color: white;
+    background-color: black;
+    
+}
+.btn1{
+    padding: 0.4rem;
+    margin-top: 0.1rem;
+    
+}
+.btn1:hover{
+    background: rgb(255,181,0);
+    color: white;
+    transition: all 0.3s ease-in-out;
+}
+@media(max-width:1300px){
+    .booking-container{
+        width: 65vw;
+        height: 90vh;
+        
+    }
+}
+@media(max-width:529px){
+    .Round-trip{
+        display: inline-block;
+        
+    }
+    .booking-container{
+        width: 65vw;
+        height: 85vh;
+    }
+}
+@media(max-width:470px){
+    .booking-container{
+        width: 65vw;
+        height: 90vh;
+        
+    }
+}
+@media(max-width:440px){
+    .booking-container{
+        width: 67vw;
+        height: 90vh;
+        
+    }
+}
+@media(max-width:417px){
+    .booking-container{
+        width: 65vw;
+        height: 90vh;
+        
+        
+        
+    }
+    body{
+        font-size: 1rem;
+    };
+}
+@media(max-width:367px){
+    .booking-container{
+        width: 67vw;
+        height: 90vh;
+        
+    }
+}
